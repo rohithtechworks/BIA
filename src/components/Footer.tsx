@@ -110,9 +110,6 @@ export function Footer() {
 
       <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
         <p>© {new Date().getFullYear()} Brilliant IAS Academy. All rights reserved.</p>
-        <p className="flex items-center gap-1">
-          Designed with <Heart className="w-3.5 h-3.5 text-pink-500 fill-pink-500" /> for Spoken English Learners
-        </p>
       </div>
     </footer>
   );
