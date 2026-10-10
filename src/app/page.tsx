@@ -105,9 +105,9 @@ export default function LandingPage() {
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-base">Supabase Powered</h4>
+                <h4 className="font-bold text-slate-900 dark:text-white text-base">Expert Spoken Guidance</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                  Secure authentication, progress sync, and media storage.
+                  Master natural conversation patterns, pronunciation, and tone.
                 </p>
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function LandingPage() {
                 Ready to Speak English with Unshakeable Confidence?
               </h3>
               <p className="text-purple-100 text-base leading-relaxed">
-                Join Brilliant IAS Academy today. Track your progress across 80+ structured lessons with Supabase backend security.
+                Join Brilliant IAS Academy today. Track your progress across 80+ structured lessons with interactive AI practice partners.
               </p>
 
               <button
