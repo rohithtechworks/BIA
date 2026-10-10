@@ -24,7 +24,50 @@ export default function CourseDetailsPage({
 }) {
   const { slug } = use(params);
   const module = getModule(slug);
-  const { isLessonCompleted, completedLessons } = useAuth();
+  const { user, isLoading, isLessonCompleted, completedLessons } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
+        <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900 border border-slate-800 shadow-md">
+          <Sparkles className="w-5 h-5 text-pink-500 animate-spin" />
+          <span className="font-semibold text-sm">Loading Course Details...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+        <Navbar />
+        <main className="flex-1 flex flex-col items-center justify-center p-6 text-center space-y-6 max-w-md mx-auto">
+          <div className="w-20 h-20 rounded-3xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 mx-auto shadow-xl">
+            <Sparkles className="w-10 h-10" />
+          </div>
+          <h2 className="text-3xl font-black text-white">Sign In Required</h2>
+          <p className="text-slate-400 text-sm">
+            Please sign in or create an account to access Brilliant IAS Academy modules and video lessons.
+          </p>
+          <div className="flex items-center gap-3 w-full">
+            <Link
+              href="/login"
+              className="flex-1 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 font-bold text-sm text-center text-white"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/signup"
+              className="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:opacity-90 font-bold text-sm text-center text-white shadow-lg"
+            >
+              Sign Up
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!module) {
     return notFound();
