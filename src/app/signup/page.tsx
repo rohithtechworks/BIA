@@ -28,7 +28,6 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [coursePassword, setCoursePassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -54,7 +53,6 @@ export default function SignupPage() {
       email: email.trim(),
       phone: phone.trim(),
       password,
-      coursePassword,
     });
 
     setLoading(false);
@@ -163,26 +161,6 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Course Access Password */}
-            <div className="p-3.5 rounded-2xl bg-pink-500/10 border border-pink-500/20 space-y-1">
-              <label className="block text-xs font-extrabold text-pink-600 dark:text-pink-400 uppercase tracking-wider flex items-center gap-1.5">
-                <KeyRound className="w-3.5 h-3.5" />
-                <span>Course Password (10-digit Hex)</span>
-              </label>
-              <input
-                type="text"
-                required
-                maxLength={10}
-                value={coursePassword}
-                onChange={(e) => setCoursePassword(e.target.value.toUpperCase())}
-                placeholder="e.g. 1A2B3C4D5E"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-pink-500/30 text-slate-900 dark:text-white text-xs font-mono font-bold tracking-wider uppercase focus:outline-none focus:border-pink-500"
-              />
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                Enter your unique 10-digit hexadecimal course password from the database.
-              </p>
-            </div>
-
             <button
               type="submit"
               disabled={loading}
@@ -192,7 +170,7 @@ export default function SignupPage() {
                 <Sparkles className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  <span>Create Account & Unlock Modules</span>
+                  <span>Create Account</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}

@@ -304,57 +304,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     email,
     phone,
     password,
-    coursePassword,
   }: {
     fullName: string;
     email: string;
     phone: string;
     password: string;
-    coursePassword?: string;
   }) => {
     setIsLoading(true);
     const cleanEmail = email.trim().toLowerCase();
     const cleanPhone = phone.trim();
-    const cleanPass = coursePassword?.trim().toUpperCase() || "";
 
-    // Validate 10-digit hexadecimal format
-    const hex10Regex = /^[0-9A-F]{10}$/;
-    if (!hex10Regex.test(cleanPass)) {
-      setIsLoading(false);
-      return { success: false, error: "Course password must be exactly 10 hexadecimal characters (0-9, A-F)." };
-    }
-
-    // Verify against DB (access_codes table)
-    let isCodeValid = false;
-    if (isSupabaseConfigured()) {
-      try {
-        const { data } = await supabase
-          .from("access_codes")
-          .select("code, used")
-          .eq("code", cleanPass)
-          .maybeSingle();
-        if (data) {
-          isCodeValid = true;
-          await supabase
-            .from("access_codes")
-            .update({ used: true })
-            .eq("code", cleanPass);
-        }
-      } catch {
-        // ignore
-      }
-    }
-
-    if (!isCodeValid) {
-      isCodeValid = hex10Regex.test(cleanPass);
-    }
-
-    if (!isCodeValid) {
-      setIsLoading(false);
-      return { success: false, error: "Invalid Course Access Password. Code not found in database of valid 10,000 passwords." };
-    }
-
-    const isUnlocked = true;
+    const isUnlocked = false;
+    const cleanPass = "";
 
     if (isSupabaseConfigured()) {
       try {

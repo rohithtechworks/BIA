@@ -40,7 +40,6 @@ export function AuthModal({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [coursePassword, setCoursePassword] = useState("");
 
   if (!isOpen) return null;
 
@@ -80,7 +79,6 @@ export function AuthModal({
       email: email.trim(),
       phone: phone.trim(),
       password,
-      coursePassword,
     });
 
     setLoading(false);
@@ -339,28 +337,6 @@ export function AuthModal({
               </div>
             </div>
 
-            {/* Course Password Field */}
-            <div className="p-3 rounded-2xl bg-pink-500/10 border border-pink-500/20">
-              <label className="block text-xs font-extrabold text-pink-600 dark:text-pink-400 mb-1 uppercase tracking-wider flex items-center gap-1.5">
-                <KeyRound className="w-3.5 h-3.5" />
-                <span>Course Password (10-digit Hex)</span>
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  required
-                  maxLength={10}
-                  value={coursePassword}
-                  onChange={(e) => setCoursePassword(e.target.value.toUpperCase())}
-                  placeholder="e.g. 1A2B3C4D5E"
-                  className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-pink-500/30 text-slate-900 dark:text-white text-xs font-mono font-bold tracking-wider uppercase focus:outline-none focus:border-pink-500"
-                />
-              </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
-                Enter your unique 10-digit hexadecimal course password from the database.
-              </p>
-            </div>
-
             <button
               type="submit"
               disabled={loading}
@@ -370,7 +346,7 @@ export function AuthModal({
                 <Sparkles className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  <span>Create Account & Unlock Modules</span>
+                  <span>Create Account</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
