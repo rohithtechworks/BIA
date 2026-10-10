@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export default function DashboardPage() {
-  const { user, isLoading, getOverallProgress } = useAuth();
+  const { user, isLoading, getOverallProgress, getStreakCount } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
@@ -121,7 +121,7 @@ export default function DashboardPage() {
                   <Flame className="w-4 h-4 text-amber-400" />
                 </div>
                 <div className="text-2xl font-black text-amber-300 flex items-center gap-1">
-                  3 Days 🔥
+                  {getStreakCount()} Days 🔥
                 </div>
                 <div className="text-[11px] text-slate-400 font-medium">
                   Consistent Learning

@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 
 export default function ProfilePage() {
-  const { user, updateProfile, logout, getOverallProgress } = useAuth();
+  const { user, updateProfile, logout, getOverallProgress, getStreakCount } = useAuth();
 
   const [fullName, setFullName] = useState(user?.fullName || "");
   const [phone, setPhone] = useState(user?.phone || "");
@@ -164,7 +164,7 @@ export default function ProfilePage() {
                 <div className="flex items-center justify-between">
                   <span>Learning Streak</span>
                   <span className="text-amber-400 font-bold flex items-center gap-1">
-                    <Flame className="w-3.5 h-3.5" /> 3 Days
+                    <Flame className="w-3.5 h-3.5" /> {getStreakCount()} Days
                   </span>
                 </div>
               </div>

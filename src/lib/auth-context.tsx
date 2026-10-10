@@ -34,6 +34,7 @@ type AuthContextType = {
   toggleLessonCompletion: (courseSlug: string, lessonSlug: string) => Promise<void>;
   isLessonCompleted: (courseSlug: string, lessonSlug: string) => boolean;
   getOverallProgress: () => { completedCount: number; totalCount: number; percentage: number };
+  getStreakCount: () => number;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -550,6 +551,48 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { completedCount, totalCount, percentage };
   };
 
+  const getStreakCount = (): number => {
+    if (!user) return 1;
+    const key = `brilliant_user_activity_${user.id}`;
+    let activityDates: string[] = [];
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved) activityDates = JSON.parse(saved);
+    } catch {}
+
+    const today = new Date().toISOString().split("T")[0];
+    if (!activityDates.includes(today)) {
+      activityDates.push(today);
+      localStorage.setItem(key, JSON.stringify(activityDates));
+    }
+
+    activityDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+
+    let streak = 0;
+    const checkDate = new Date();
+
+    for (let i = 0; i < 365; i++) {
+      const dateStr = checkDate.toISOString().split("T")[0];
+      if (activityDates.includes(dateStr)) {
+        streak++;
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        if (i === 0) {
+          checkDate.setDate(checkDate.getDate() - 1);
+          const yesterdayStr = checkDate.toISOString().split("T")[0];
+          if (activityDates.includes(yesterdayStr)) {
+            streak++;
+            checkDate.setDate(checkDate.getDate() - 1);
+            continue;
+          }
+        }
+        break;
+      }
+    }
+
+    return Math.max(1, streak);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -567,6 +610,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         toggleLessonCompletion,
         isLessonCompleted,
         getOverallProgress,
+        getStreakCount,
       }}
     >
       {children}
