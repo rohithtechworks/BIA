@@ -146,3 +146,19 @@ CREATE POLICY "Authenticated users can upload to media bucket"
     ON storage.objects FOR INSERT
     TO authenticated
     WITH CHECK (bucket_id = 'media');
+
+-- 7. ACCESS CODES TABLE (10,000 unique 10-digit hexadecimal codes)
+CREATE TABLE IF NOT EXISTS public.access_codes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    code TEXT UNIQUE NOT NULL,
+    used BOOLEAN DEFAULT false,
+    used_by UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable RLS for access_codes
+ALTER TABLE public.access_codes ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Access codes are readable by everyone for verification"
+    ON public.access_codes FOR SELECT
+    USING (true);
