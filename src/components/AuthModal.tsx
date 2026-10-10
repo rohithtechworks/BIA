@@ -52,7 +52,7 @@ export function AuthModal({
     setLoading(false);
 
     if (res.success) {
-      onClose();
+      window.location.href = "/dashboard";
     } else {
       setErrorMsg(res.error || "Login failed.");
     }
@@ -84,7 +84,7 @@ export function AuthModal({
     setLoading(false);
 
     if (res.success) {
-      onClose();
+      window.location.href = "/dashboard";
     } else {
       setErrorMsg(res.error || "Sign up failed.");
     }

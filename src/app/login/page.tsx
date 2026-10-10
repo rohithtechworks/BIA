@@ -36,7 +36,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (res.success) {
-      router.push("/dashboard");
+      window.location.href = "/dashboard";
     } else {
       setErrorMsg(res.error || "Login failed.");
     }

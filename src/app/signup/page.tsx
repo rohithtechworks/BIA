@@ -58,7 +58,7 @@ export default function SignupPage() {
     setLoading(false);
 
     if (res.success) {
-      router.push("/dashboard");
+      window.location.href = "/dashboard";
     } else {
       setErrorMsg(res.error || "Sign up failed.");
     }
